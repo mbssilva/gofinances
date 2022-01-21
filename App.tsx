@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 
@@ -23,8 +24,12 @@ export default function App() {
   if (!fontsWereLoaded) return <AppLoading />
 
   return (
-    <ThemeProvider theme={theme}>
-      <Dashboard />
-    </ThemeProvider>
+    <>
+      <StatusBar backgroundColor={theme.colors.primary} />
+      <ThemeProvider theme={theme}>
+        <Dashboard />
+      </ThemeProvider>
+    </>
+
   );
 }
