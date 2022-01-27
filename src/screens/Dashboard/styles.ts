@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -20,6 +21,10 @@ export const Header = styled.View`
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 22px;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const UserInfo = styled.View`
@@ -42,7 +47,7 @@ export const User = styled.View`
 export const UserGreeting = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 
-  font-size: ${RFValue(16 )}px;
+  font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
@@ -52,3 +57,11 @@ export const Username = styled.Text`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
 `;
+
+export const PowerButton = styled(Feather).attrs(() => ({
+  name: 'power'
+}))`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${RFValue(24)}px;
+`;
+

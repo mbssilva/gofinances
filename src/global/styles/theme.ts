@@ -2,8 +2,8 @@ export default {
   colors: {
     primary: '#5636d3',
 
-    secundary: '#ff872c',
-    secondaty_dark: 'rgba(255, 135, 44, 0.3)',
+    secondary: '#ff872c',
+    secondary_dark: 'rgba(255, 135, 44, 0.3)',
 
     success: '#12a454',
     success_dark: 'rgba(18, 164, 84, 0.9)',
