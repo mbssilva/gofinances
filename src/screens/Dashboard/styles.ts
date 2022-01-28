@@ -14,13 +14,15 @@ export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
 
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
 `;
 
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 22px;
+
+  margin-top: ${RFValue(28)}px;
 
   flex-direction: row;
   justify-content: space-between;
@@ -58,10 +60,21 @@ export const Username = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
 `;
 
-export const PowerButton = styled(Feather).attrs(() => ({
+export const PowerButton = styled(Feather).attrs({
   name: 'power'
-}))`
+})`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(24)}px;
 `;
 
+export const HighlightCards = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingLeft: 22
+  }
+})`
+  width: 100%;
+  position: absolute;
+  margin-top: ${RFPercentage(17)}px;
+`;
