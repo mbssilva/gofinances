@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlatList, VirtualizedList } from 'react-native';
 
 import { HighlightCard } from '../../components/HighlightCard';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
@@ -15,11 +16,10 @@ import {
   PowerButton,
   HighlightCards,
   Transactions,
-  Title,
-  TransactionsList
+  Title
 } from './styles';
 
-export interface TransactionsListProps extends TransactionCardProps {
+interface TransactionsListProps extends TransactionCardProps {
   id: string;
 }
 
@@ -104,12 +104,16 @@ export function Dashboard() {
       <Transactions>
         <Title>Listagem</Title>
 
-        <TransactionsList
+        <FlatList
           data={transactionList}
           keyExtractor={(item: TransactionsListProps) => item.id}
           renderItem={
             ({ item }: { item: TransactionsListProps }) => <TransactionCard data={item} />
           }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 3
+          }}
         />
 
       </Transactions>
