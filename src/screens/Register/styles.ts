@@ -9,7 +9,7 @@ export const Container = styled.SafeAreaView`
 export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
   
-  height: ${RFValue(113)}px;
+  height: ${RFValue(110)}px;
   width: 100%;
 
   align-items: center;
@@ -25,7 +25,17 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
   flex: 1;
+  justify-content: space-between;
   width: 100%;
   
   padding: 18px;
+`;
+
+export const Fields = styled.View``;
+
+export const TransactionTypes = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-top: 8px;
 `;
