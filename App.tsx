@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
+import { NavigationContainer } from '@react-navigation/native';
 
 import {
   useFonts,
@@ -12,9 +13,7 @@ import {
 
 import theme from './src/global/styles/theme';
 
-import { Dashboard } from './src/screens/Dashboard';
-import { Register } from './src/screens/Register';
-import { CategorySelect } from './src/screens/CategorySelect';
+import { AppRoutes } from './src/routes';
 
 export default function App() {
   const [fontsWereLoaded] = useFonts({
@@ -28,10 +27,11 @@ export default function App() {
   return (
     <>
       <StatusBar backgroundColor={theme.colors.primary} />
-      <ThemeProvider theme={theme}>
-        <Register />
-      </ThemeProvider>
+      <NavigationContainer>
+        <ThemeProvider theme={theme}>
+          <AppRoutes />
+        </ThemeProvider>
+      </NavigationContainer>
     </>
-
   );
 }
