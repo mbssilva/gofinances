@@ -16,7 +16,8 @@ import {
   PowerButton,
   HighlightCards,
   Transactions,
-  Title
+  Title,
+  LogoutButton
 } from './styles';
 
 interface TransactionsListProps extends TransactionCardProps {
@@ -75,7 +76,9 @@ export function Dashboard() {
             </User>
           </UserInfo>
 
-          <PowerButton />
+          <LogoutButton onPress={() => {}}>
+            <PowerButton />
+          </LogoutButton>
 
         </UserWrapper>
       </Header>
