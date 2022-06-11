@@ -1,8 +1,11 @@
-import React from 'react';
-import { FlatList, VirtualizedList } from 'react-native';
+import React from "react";
+import { FlatList } from "react-native";
 
-import { HighlightCard } from '../../components/HighlightCard';
-import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import { HighlightCard } from "../../components/HighlightCard";
+import {
+  TransactionCard,
+  TransactionCardProps,
+} from "../../components/TransactionCard";
 
 import {
   Container,
@@ -17,8 +20,8 @@ import {
   HighlightCards,
   Transactions,
   Title,
-  LogoutButton
-} from './styles';
+  LogoutButton,
+} from "./styles";
 
 interface TransactionsListProps extends TransactionCardProps {
   id: string;
@@ -27,38 +30,38 @@ interface TransactionsListProps extends TransactionCardProps {
 export function Dashboard() {
   const transactionList: TransactionsListProps[] = [
     {
-      id: '1',
-      type: 'positive',
-      title: 'Desenvolvimento de Site',
-      amount: 'R$ 12.000,00',
+      id: "1",
+      type: "positive",
+      title: "Desenvolvimento de Site",
+      amount: "R$ 12.000,00",
       category: {
-        name: 'Vendas',
-        icon: 'dollar-sign',
+        name: "Vendas",
+        icon: "dollar-sign",
       },
-      date: '13/04/2020'
+      date: "13/04/2020",
     },
     {
-      id: '2',
-      type: 'negative',
-      title: 'Hamburgueria Pizzy',
-      amount: 'R$ 59,00',
+      id: "2",
+      type: "negative",
+      title: "Hamburgueria Pizzy",
+      amount: "R$ 59,00",
       category: {
-        name: 'Alimentação',
-        icon: 'coffee',
+        name: "Alimentação",
+        icon: "coffee",
       },
-      date: '10/04/2020'
+      date: "10/04/2020",
     },
     {
-      id: '3',
-      type: 'negative',
-      title: 'Aluguel do apartamento',
-      amount: 'R$ 1.200,00',
+      id: "3",
+      type: "negative",
+      title: "Aluguel do apartamento",
+      amount: "R$ 1.200,00",
       category: {
-        name: 'Casa',
-        icon: 'home',
+        name: "Casa",
+        icon: "home",
       },
-      date: '27/03/2020'
-    }
+      date: "27/03/2020",
+    },
   ];
 
   return (
@@ -66,12 +69,14 @@ export function Dashboard() {
       <Header>
         <UserWrapper>
           <UserInfo>
-            <Photo source={{
-              uri: 'https://avatars.githubusercontent.com/u/60112997?v=4'
-            }} />
+            <Photo
+              source={{
+                uri: "https://avatars.githubusercontent.com/u/60112997?v=4",
+              }}
+            />
 
             <User>
-              <UserGreeting>Olá, </UserGreeting>
+              <UserGreeting>Olá,</UserGreeting>
               <Username>Matheus</Username>
             </User>
           </UserInfo>
@@ -79,7 +84,6 @@ export function Dashboard() {
           <LogoutButton onPress={() => {}}>
             <PowerButton />
           </LogoutButton>
-
         </UserWrapper>
       </Header>
 
@@ -110,15 +114,14 @@ export function Dashboard() {
         <FlatList
           data={transactionList}
           keyExtractor={(item: TransactionsListProps) => item.id}
-          renderItem={
-            ({ item }: { item: TransactionsListProps }) => <TransactionCard data={item} />
-          }
+          renderItem={({ item }: { item: TransactionsListProps }) => (
+            <TransactionCard data={item} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom: 3
+            paddingBottom: 3,
           }}
         />
-
       </Transactions>
     </Container>
   );
