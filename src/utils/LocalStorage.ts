@@ -1,40 +1,45 @@
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 
 class LocalStorage {
-  addItem: (
+  #keyPrefix = "@gofinances:";
+
+  async addItem(
     collection: string,
     data: object,
-    clearAndForceCollectionCasting?: boolean
-  ) => Promise<void>;
-  setItem: (collection: string, data: object) => Promise<void>;
-  getItem: (collection: string) => Promise<any>;
-  removeAll: (collection: string) => Promise<void>;
+    clearCollectionAndForceCasting: boolean = true
+  ) {
+    const path = this.#keyPrefix + collection;
 
-  constructor() {
-    const keyPrefix = "@gofinances:";
+    let currentData = await this.getItem(path);
 
-    this.addItem = async (collection, data, forceCasting = true) => {
-      const jsonData = await AsyncStorage.getItem(keyPrefix + collection);
-      let currentData = jsonData ? JSON.parse(jsonData) : [];
+    if (clearCollectionAndForceCasting && !Array.isArray(currentData))
+      currentData = [];
 
-      if (forceCasting && !Array.isArray(currentData))
-        currentData = [];
-
+    if (Array.isArray(currentData)) {
       currentData.push(data);
-      await this.setItem(keyPrefix + collection, currentData);
-    };
+      await this.setItem(path, currentData);
+    } else {
+      throw new Error("Data was not storaged.");
+    }
+  }
 
-    this.setItem = (collection, data) =>
-      AsyncStorage.setItem(keyPrefix + collection, JSON.stringify(data));
+  setItem(collection: string, data: object) {
+    const path = this.#keyPrefix + collection;
 
-    this.getItem = async (collection) => {
-      const jsonData = await AsyncStorage.getItem(keyPrefix + collection);
-      return jsonData && JSON.parse(jsonData);
-    };
+    return AsyncStorage.setItem(path, JSON.stringify(data));
+  }
 
-    this.removeAll = (collection) =>
-      AsyncStorage.removeItem(keyPrefix + collection);
+  async getItem(collection: string) {
+    const path = this.#keyPrefix + collection;
+
+    const jsonData = await AsyncStorage.getItem(path);
+    return jsonData && JSON.parse(jsonData);
+  }
+
+  removeAll(collection: string) {
+    const path = this.#keyPrefix + collection;
+
+    return AsyncStorage.removeItem(path);
   }
 }
 
