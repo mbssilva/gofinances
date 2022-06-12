@@ -1,38 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList } from "react-native";
 
 import { Button } from "../../components/Form/Button";
 
-import { categories } from "../../utils/categories";
+import { Category as CategoryTypes } from "../../types/index";
 
 import {
   Container,
   Header,
   Title,
-  Category,
+  CategoryItem,
   Icon,
   Name,
   Separator,
   Footer,
 } from "./styles";
 
-interface Category {
-  key: string;
-  name: string;
-}
-
 interface Props {
-  category: Category;
-  setCategory: (category: Category) => void;
+  fields?: CategoryTypes[];
+  category: CategoryTypes;
+  setCategory: (category: CategoryTypes) => void;
   closeSelectCategory: () => void;
 }
 
 export function CategorySelect({
+  fields,
   category,
   setCategory,
   closeSelectCategory,
 }: Props) {
-  function handleSetCategorySelect(item: Category) {
+  function handleSetCategorySelect(item: CategoryTypes) {
     setCategory(item);
   }
 
@@ -43,11 +40,11 @@ export function CategorySelect({
       </Header>
 
       <FlatList
-        data={categories}
+        data={fields}
         style={{ flex: 1, width: "100%" }}
         keyExtractor={(item) => item.key}
         renderItem={({ item }) => (
-          <Category
+          <CategoryItem
             onPress={() => {
               handleSetCategorySelect(item);
             }}
@@ -55,7 +52,7 @@ export function CategorySelect({
           >
             <Icon name={item.icon} />
             <Name>{item.name}</Name>
-          </Category>
+          </CategoryItem>
         )}
         ItemSeparatorComponent={() => <Separator />}
       />

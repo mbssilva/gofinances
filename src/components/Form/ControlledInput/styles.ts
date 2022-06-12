@@ -11,5 +11,5 @@ export const Error = styled.Text`
 
   color: ${({ theme }) => theme.colors.attention};
 
-  margin: 7px;
+  margin: 7px 4px 7px 7px;
 `;

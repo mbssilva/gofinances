@@ -13,6 +13,8 @@ export const Container = styled(TouchableOpacity).attrs({
 
   border-radius: 5px;
   padding: 19px 16px;
+
+  margin-bottom: 8px;
 `;
 
 export const Category = styled.Text`

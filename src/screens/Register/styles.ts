@@ -1,14 +1,20 @@
-import styled from 'styled-components/native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import styled from "styled-components/native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
+export const ScrollableWrapper = styled.ScrollView.attrs({
+  contentContainerStyle: { flexGrow: 1 },
+})`
+  flex: 1;
+`;
+
 export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
-  
+
   height: ${RFValue(110)}px;
   width: 100%;
 
@@ -27,7 +33,7 @@ export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
   width: 100%;
-  
+
   padding: 18px;
 `;
 
