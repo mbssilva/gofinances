@@ -14,7 +14,7 @@ import { CategorySelect } from "../../screens/CategorySelect";
 
 import Request from "../../utils/Request";
 import { categories } from "../../utils/categories";
-import { titles } from "../../utils/titles";
+// import { titles } from "../../utils/titles";
 
 import {
   Container,
@@ -25,6 +25,10 @@ import {
   Fields,
   TransactionTypes,
 } from "./styles";
+
+type Nav = {
+  navigate: (value: string) => void;
+};
 
 interface FormData {
   description: string;
@@ -47,21 +51,20 @@ export function Register() {
   const [transactionType, setTransactionType] = useState<"" | "up" | "down">(
     ""
   );
-  const [titleModalVisible, setTitleModalVisible] = useState(false);
+  // const [titleModalVisible, setTitleModalVisible] = useState(false);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [category, setCategory] = useState({ ...categoryTitleDefault });
-  const [title, setTitle] = useState({ ...categoryTitleDefault });
+  // const [title, setTitle] = useState({ ...categoryTitleDefault });
   const [registerReady, setRegisterReady] = useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<Nav>();
 
   useEffect(() => {
     setRegisterReady(
-      !!transactionType &&
-        category.key !== "category" &&
-        title.key !== "category"
+      !!transactionType && category.key !== "category"
+      // && title.key !== "category"
     );
-  }, [transactionType, category, title]);
+  }, [transactionType, category]);
 
   const {
     control,
@@ -74,7 +77,7 @@ export function Register() {
 
   function handleTransactionTypeSelect(type: "up" | "down") {
     if (type !== transactionType) {
-      setTitle(categoryTitleDefault);
+      // setTitle(categoryTitleDefault);
       setCategory(categoryTitleDefault);
     }
     setTransactionType(type);
@@ -84,9 +87,9 @@ export function Register() {
     setCategoryModalVisible(visible);
   }
 
-  function handleShowSelectTitleModal(visible: boolean) {
-    setTitleModalVisible(visible);
-  }
+  // function handleShowSelectTitleModal(visible: boolean) {
+  //   setTitleModalVisible(visible);
+  // }
 
   async function handleRegister(form: Partial<FormData>) {
     if (!registerReady) return;
@@ -97,19 +100,20 @@ export function Register() {
       description: form.description,
       value: form.value,
       category: category.key,
-      title: title.key,
+      title: "",
+      // title: title.key,
     };
 
     try {
       if (transactionType === "up") {
         Request.post("revenue", data);
-      } else {
+      } else if (transactionType === "down") {
         Request.post("expense", data);
       }
 
       formInputsReset();
       setTransactionType("");
-      setTitle(categoryTitleDefault);
+      // setTitle(categoryTitleDefault);
       setCategory(categoryTitleDefault);
 
       navigation.navigate("Listagem");
@@ -131,7 +135,7 @@ export function Register() {
               <ControlledInput
                 name="description"
                 control={control}
-                placeholder="Nome"
+                placeholder="Nome ou descrição"
                 autoCapitalize="words"
                 autoCorrect={false}
                 error={errors.description && errors.description.message}
@@ -165,12 +169,12 @@ export function Register() {
                   onPress={() => handleShowSelectCategoryModal(true)}
                 />
               )}
-              {category.key !== "category" && (
+              {/* {category.key !== "category" && (
                 <CategorySelectButton
                   title={title.name}
                   onPress={() => handleShowSelectTitleModal(true)}
                 />
-              )}
+              )} */}
             </Fields>
 
             <Button
@@ -195,14 +199,14 @@ export function Register() {
             />
           </Modal>
 
-          <Modal visible={titleModalVisible}>
+          {/* <Modal visible={titleModalVisible}>
             <CategorySelect
               fields={titles[category.key]}
               category={title}
               setCategory={setTitle}
               closeSelectCategory={() => handleShowSelectTitleModal(false)}
             />
-          </Modal>
+          </Modal> */}
         </ScrollableWrapper>
       </Container>
     </TouchableWithoutFeedback>

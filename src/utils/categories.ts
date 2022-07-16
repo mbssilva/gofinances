@@ -10,7 +10,7 @@ import { Category } from "../types";
 // ];
 
 // Categorias incompletas - icon e color
-export const categories: { revenue: Category[]; expense: Category[] } = {
+export const categories: { revenue: Category[], expense: Category[] } = {
   revenue: [
     { key: "gerais", name: "Gerais", icon: "dollar-sign", color: "red" },
     {

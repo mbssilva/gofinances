@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import configs from "../global/configs";
 
 class PhoneStorage {
-  #keyPrefix = configs.ASYNC_STORAGE_PREFIX + ":";
+  private keyPrefix = configs.ASYNC_STORAGE_PREFIX + ":";
 
   async addItem(
     collection: string,
@@ -24,13 +24,13 @@ class PhoneStorage {
   }
 
   setItem(collection: string, data: object | string | number): Promise<void> {
-    const path = this.#keyPrefix + collection;
+    const path = this.keyPrefix + collection;
 
     return AsyncStorage.setItem(path, JSON.stringify(data));
   }
 
   async getItem(collection: string): Promise<object | string | number | null> {
-    const path = this.#keyPrefix + collection;
+    const path = this.keyPrefix + collection;
 
     const jsonData = await AsyncStorage.getItem(path);
 
@@ -38,17 +38,17 @@ class PhoneStorage {
   }
 
   clearCollection(collection: string): Promise<void> {
-    const path = this.#keyPrefix + collection;
+    const path = this.keyPrefix + collection;
 
     return AsyncStorage.removeItem(path);
   }
 
   async clearAllCollections(): Promise<void> {
-    const prefixLength = this.#keyPrefix.length;
+    const prefixLength = this.keyPrefix.length;
     const allKeys = await AsyncStorage.getAllKeys();
 
     const keysOfThisPrefix = allKeys.filter(
-      (key) => key.substring(0, prefixLength) === this.#keyPrefix
+      (key) => key.substring(0, prefixLength) === this.keyPrefix
     );
 
     return AsyncStorage.multiRemove(keysOfThisPrefix);

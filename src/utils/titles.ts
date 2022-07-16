@@ -1,6 +1,6 @@
 import { Category } from "../types";
 
-// Categorias incompletas - icon e color
+// Títulos incompletas - icon e color
 export const titles: { [key: string]: Category[] } = {
   gerais: [
     { key: "salario", name: "Salário/Pro-labore", icon: "dollar-sign", color: "red" },

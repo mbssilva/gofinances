@@ -5,25 +5,25 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AppLoading from "./src/screens/AppLoading";
 
-import {
-  useFonts,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_700Bold,
-} from "@expo-google-fonts/poppins";
+// import {
+//   useFonts,
+//   Poppins_400Regular,
+//   Poppins_500Medium,
+//   Poppins_700Bold,
+// } from "@expo-google-fonts/poppins";
 
 import theme from "./src/global/styles/theme";
 
 import { AppRoutes } from "./src/routes";
 
 export default function App() {
-  const [fontsWereLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_700Bold,
-  });
+  // const [fontsWereLoaded] = useFonts({
+  //   Poppins_400Regular,
+  //   Poppins_500Medium,
+  //   Poppins_700Bold,
+  // });
 
-  if (!fontsWereLoaded) return <AppLoading />;
+  // if (!fontsWereLoaded) return <AppLoading />;
 
   return (
     <>
