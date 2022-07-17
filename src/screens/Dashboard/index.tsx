@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 
 import { HighlightCard } from "../../components/HighlightCard";
+import { TransactionCard } from "../../components/TransactionCard";
+
+import Request from "../../utils/Request";
+
 import {
-  TransactionCard,
   TransactionCardProps,
-} from "../../components/TransactionCard";
+  Revenue,
+  Expense,
+  RevenueBackend,
+  ExpenseBackend,
+} from "../../types/index";
 
 import {
   Container,
@@ -28,41 +35,74 @@ interface TransactionsListProps extends TransactionCardProps {
 }
 
 export function Dashboard() {
-  const transactionList: TransactionsListProps[] = [
-    {
-      id: "1",
-      type: "positive",
-      title: "Desenvolvimento de Site",
-      amount: "R$ 12.000,00",
-      category: {
-        name: "Vendas",
-        icon: "dollar-sign",
-      },
-      date: "13/04/2020",
-    },
-    {
-      id: "2",
-      type: "negative",
-      title: "Hamburgueria Pizzy",
-      amount: "R$ 59,00",
-      category: {
-        name: "Alimentação",
-        icon: "coffee",
-      },
-      date: "10/04/2020",
-    },
-    {
-      id: "3",
-      type: "negative",
-      title: "Aluguel do apartamento",
-      amount: "R$ 1.200,00",
-      category: {
-        name: "Casa",
-        icon: "home",
-      },
-      date: "27/03/2020",
-    },
-  ];
+  const [transactions, setTransactions] = useState<TransactionsListProps[]>([]);
+
+  useEffect(() => {
+    async function loadTransactions() {
+      try {
+        const { data: revenueData }: { data: { revenues: RevenueBackend[] } } =
+          await Request.get("revenue");
+        const { data: expenseData }: { data: { expenses: ExpenseBackend[] } } =
+          await Request.get("expense");
+
+        const { revenues } = revenueData;
+        const { expenses } = expenseData;
+
+        const parsedRevenues: Revenue[] = revenues.map((item) => ({
+          id: item.id,
+          user: item.user,
+          date: new Date(item.date),
+          category: item.category,
+          title: item.title,
+          subtitle: item.subtitle,
+          description: item.description,
+          value: item.value,
+          label: item.label,
+          createdAt: new Date(item.createdAt),
+          recurrence: item.recurrence,
+        }));
+        const parsedExpenses: Expense[] = expenses.map((item) => ({
+          id: item.id,
+          user: item.user,
+          date: new Date(item.date),
+          category: item.category,
+          title: item.title,
+          subtitle: item.subtitle,
+          description: item.description,
+          value: item.value,
+          label: item.label,
+          createdAt: new Date(item.createdAt),
+        }));
+
+        const formatedRevenues: TransactionsListProps[] = parsedRevenues.map(
+          (item) => ({
+            ...item,
+            amount: item.value.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }),
+            date: item.date.toLocaleDateString("pt-BR"),
+            type: "positive",
+          })
+        );
+        const formatedExpenses: TransactionsListProps[] = parsedExpenses.map(
+          (item) => ({
+            ...item,
+            amount: item.value.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }),
+            date: item.date.toLocaleDateString("pt-BR"),
+            type: "negative",
+          })
+        );
+
+        setTransactions([...formatedRevenues, ...formatedExpenses]);
+      } catch (error) {}
+    }
+
+    loadTransactions();
+  }, []);
 
   return (
     <Container>
@@ -112,7 +152,7 @@ export function Dashboard() {
         <Title>Listagem</Title>
 
         <FlatList
-          data={transactionList}
+          data={transactions}
           keyExtractor={(item: TransactionsListProps) => item.id}
           renderItem={({ item }: { item: TransactionsListProps }) => (
             <TransactionCard data={item} />
