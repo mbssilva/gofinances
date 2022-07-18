@@ -25,3 +25,32 @@ export const titles: { [key: string]: Category[] } = {
   despesasPessoas: [],
   educacao: [],
 };
+
+const revenue = {
+  fixed: {
+    titles: [
+      "Salário/Pro-labore",
+      "Vale alimentação",
+      "Vale refeição",
+      "Vale transporte",
+    ],
+  },
+  variable: {
+    categories: {
+      Gerais: [
+        "13º Salário",
+        "Adicional de Férias",
+        "Presentes",
+        "PLR",
+        "Bônus e Gratificações",
+        "Outros",
+      ],
+      "Cupons de títulos de crédito": [],
+      "Proventos de fundos": [],
+      Dividendos: [],
+      "Juros sobre capital próprio": [],
+      Amortizações: [],
+      Alugueis: [],
+    },
+  },
+};

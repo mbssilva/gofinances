@@ -12,7 +12,7 @@ import { CategorySelectButton } from "../../components/Form/CategorySelectButton
 
 import { CategorySelect } from "../../screens/CategorySelect";
 
-import Request from "../../utils/Request";
+import Request from "../../services/Request";
 import { categories } from "../../utils/categories";
 // import { titles } from "../../utils/titles";
 

@@ -13,13 +13,10 @@ import {
 
 import { categories } from "../../utils/categories";
 
-import { TransactionCardProps } from "../../types";
+import { TransactionCard as TransactionCardProps } from "../../types";
+import localDateString from "../../services/localDateString";
 
-interface Props {
-  data: TransactionCardProps;
-}
-
-export function TransactionCard({ data }: Props) {
+export function TransactionCard({ data }: { data: TransactionCardProps }) {
   const [category] = categories[
     data.type === "positive" ? "revenue" : "expense"
   ].filter((item) => item.key === data.category);
@@ -38,7 +35,7 @@ export function TransactionCard({ data }: Props) {
           <CategoryName>{category.name}</CategoryName>
         </Category>
 
-        <Date>{data.date}</Date>
+        <Date>{localDateString(data.date)}</Date>
       </Footer>
     </Container>
   );
